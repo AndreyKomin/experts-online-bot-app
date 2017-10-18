@@ -59,7 +59,6 @@ const renameUser = (telegramId, telegramUserName, name, reply) => {
     };
 
 
-
     const details = { telegramId };
 
     mongodb.collection(dbName).updateOne(details, note, (err, item) => {
