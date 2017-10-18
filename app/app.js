@@ -1,6 +1,10 @@
 import Telegraf from 'telegraf';
 import config from 'config';
-import mongo from 'mongodb';
+import express from 'express';
+
+import DB from './db';
+
+const app = express();
 
 const log = process.env.NODE_ENV !== 'production';
 const Console = console;
@@ -9,19 +13,7 @@ const TOKEN = config.get('token');
 const webHookUrl = `${config.get('url')}/${TOKEN}`;
 const bot = new Telegraf(TOKEN);
 
-const mongoClient = mongo.MongoClient;
-const db = config.get('db');
-const dbName = 'customers';
-let mongodb;
-
-mongoClient.connect(db.get('url'), (err, database) => {
-  if (err) {
-    log && Console.error('if ', err);
-    return false;
-  }
-  mongodb = database;
-  return log && Console.info('MongoDB is started');
-});
+DB.initConnect();
 
 const registrationUser = (telegramId, telegramUserName, name, reply) => {
   if (name.length > 0) {
@@ -30,22 +22,15 @@ const registrationUser = (telegramId, telegramUserName, name, reply) => {
       telegramUserName,
       name,
     };
-
-    const details = { telegramId };
-
-    mongodb.collection(dbName).findOne(details, (err, item) => {
-      if (err) {
-        log && Console.log({ error: 'An error has occurred' });
-        return false;
-      } else if (item === null) {
-        mongodb.collection(dbName).insertOne(note, (err2) => {
-          if (err2) {
-            return reply('Registration error, sorry =)');
-          }
-          return reply(`Registration complete, ${name}`);
-        });
+    DB.checkUserIfExist(telegramId).then((item) => {
+      if (item === null) {
+        DB.insertUser(note)
+          .then(() => reply(`Registration complete, ${name}`))
+          .catch(() => reply('Registration error, sorry =)'));
       }
       return reply(`You are already registered, ${item.name}`);
+    }).catch(() => {
+      log && Console.log({ error: 'An error has occurred' });
     });
   }
 };
@@ -57,16 +42,12 @@ const renameUser = (telegramId, telegramUserName, name, reply) => {
       telegramUserName,
       name,
     };
-
-    const details = { telegramId };
-
-    mongodb.collection(dbName).updateOne(details, note, (err, item) => {
-      if (err) {
+    DB.updateUser(telegramId, note)
+      .then(item => reply(`Ok, ${item.name}`))
+      .catch(() => {
         log && Console.log({ error: 'An error has occurred' });
         return false;
-      }
-      return reply(`Ok, ${item.name}`);
-    });
+      });
   }
 };
 
@@ -90,13 +71,15 @@ bot.catch((err) => {
   log && Console.log('Ooops', err);
 });
 
-bot.hears(/name (.+)/, ({ match, from, reply }) => {
+bot.hears(/\/name (.+)/, ({ match, from, reply }) => {
   const userName = match[1];
+  Console.log(from);
   return registrationUser(from.id, from.username, userName, reply);
 });
 
-bot.hears(/rename (.+)/, ({ match, from, reply }) => {
+bot.hears(/\/rename (.+)/, ({ match, from, reply }) => {
   const userName = match[1];
+  log && Console.log(from.username);
   return renameUser(from.id, from.username, userName, reply);
 });
 
@@ -112,3 +95,16 @@ bot.hears(/lesson (.+)/, ({ match, from, reply }) => {
 
 bot.on('text', ctx => ctx.reply(`Хватит мне такое говорить. Придумай, что-нибудь новенькое ${ctx.from.username}!`));
 
+
+const port = 8080;
+
+app.listen(port, () => {
+  Console.log(`We are live on ${port}`);
+});
+
+app.get('/request', (req, res) => {
+  Console.log(`Get query: ${req.query}`);
+  const chatId = 375161649;
+  bot.telegram.sendMessage(chatId, `Message from website: ${req.query.message}`);
+  res.send('Hello');
+});

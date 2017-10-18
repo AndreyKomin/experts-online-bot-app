@@ -1,9 +1,9 @@
 {
   "port": 3000,
-  "url": "https://topdotokgx.localtunnel.me",
+  "url": "https://autndjoykm.localtunnel.me",
   "token": "402026689:AAE7XouJSuxLlE98fFitwZkAcaQuJkh9duw",
   "db": {
-    "url": "mongodb://localhost:27017/businesshelper",
+    "url": "mongodb://localhost:27017/test",
     "user": "loovery",
     "pwd": "iamyourfather"
   }
