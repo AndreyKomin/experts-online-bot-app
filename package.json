@@ -1,6 +1,7 @@
 {
   "scripts": {
     "start": "babel-node server.js --presets=env",
+    "tunnel": "lt -p3000",
     "production": "cross-env NODE_ENV=production babel-node server.js --presets=env",
     "lint": "eslint --format 'node_modules/eslint-friendly-formatter' **/*.js",
     "lint:fix": "eslint --fix **/*.js",

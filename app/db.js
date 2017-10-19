@@ -1,8 +1,7 @@
 import config from 'config';
 import mongo from 'mongodb';
 
-const log = process.env.NODE_ENV !== 'production';
-const Console = console;
+import { log, Console } from './debug';
 
 const mongoClient = mongo.MongoClient;
 const db = config.get('db');
@@ -20,15 +19,15 @@ const DB = {
       return false;
     });
   },
-  checkUserIfExist(telegramId) {
-    const details = { telegramId };
+  checkUserIfExist(tId) {
+    const details = { tId };
     return mongodb.collection(dbName).findOne(details);
   },
   insertUser(note) {
     return mongodb.collection(dbName).insertOne(note);
   },
-  updateUser(telegramId, note) {
-    const details = { telegramId };
+  updateUser(tId, note) {
+    const details = { tId };
     return mongodb.collection(dbName).updateOne(details, note);
   },
 };
