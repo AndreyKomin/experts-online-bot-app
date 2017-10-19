@@ -1,4 +1,4 @@
-import DB from '../db';
+import db from '../db';
 import { log, Console } from '../debug';
 
 const UserRename = (tId, tUserName, name, reply) => {
@@ -8,7 +8,7 @@ const UserRename = (tId, tUserName, name, reply) => {
       tUserName,
       name,
     };
-    DB.updateUser(tId, note)
+    db.updateUser(tId, note)
       .then(item => reply(`Ok, ${item.name}`))
       .catch(() => {
         log && Console.log({ error: 'An error has occurred' });

@@ -1,4 +1,4 @@
-import DB from '../db';
+import db from '../db';
 import { log, Console } from '../debug';
 
 const UserRegistration = (tId, tUserName, name, reply) => {
@@ -8,9 +8,9 @@ const UserRegistration = (tId, tUserName, name, reply) => {
       tUserName,
       name,
     };
-    DB.checkUserIfExist(tId).then((item) => {
+    db.checkUserIfExist(tId).then((item) => {
       if (item === null) {
-        DB.insertUser(note)
+        db.insertUser(note)
           .then(() => reply(`Registration complete, ${name}`))
           .catch(() => reply('Registration error, sorry =)'));
       }

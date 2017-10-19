@@ -2,12 +2,9 @@ import express from 'express';
 
 import { log, Console } from './debug';
 
-import DB from './db';
 import Bot from './bot';
 
 const app = express();
-
-DB.initConnect();
 
 const port = 8080;
 
