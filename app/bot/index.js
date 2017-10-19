@@ -3,6 +3,8 @@ import config from 'config';
 
 import { log, Console } from '../debug';
 
+import CommandStart from './commands/start';
+import CommandStop from './commands/stop';
 import CommandName from './commands/name';
 import CommandRename from './commands/rename';
 
@@ -18,18 +20,10 @@ bot.startWebhook(`/${TOKEN}`, null, 3000);
 
 log && Console.log('Business Helper is started');
 
-
+CommandStart(bot);
+CommandStop(bot);
 CommandName(bot);
 CommandRename(bot);
-
-bot.command('stop', (ctx) => {
-  log && Console.log(ctx);
-  return ctx.answerCallbackQuery(ctx.callback_query_id, 'ok');
-});
-
-bot.command('start', ({ reply }) => reply(`Отлично друг. Давай начнём.
-  Скажи мне и нашим пользователям, как бы ты хотел, что бы к тебе обращались? 
-  (Пример: /name Инванов Иван Иванович)`));
 
 bot.catch((err) => {
   log && Console.log('Ooops', err);
@@ -45,6 +39,6 @@ bot.hears(/lesson (.+)/, ({ match, from, reply }) => {
   return from;
 });
 
-bot.on('text', ctx => ctx.reply(`Хватит мне такое говорить. Придумай, что-нибудь новенькое ${ctx.from.username}!`));
+bot.on('text', (ctx) => { ctx.reply(`Хватит мне такое говорить. Придумай, что-нибудь новенькое ${ctx.from.username}!`); });
 
 export default bot;
