@@ -5,7 +5,9 @@ const CommandName = (bot) => {
   bot.hears(/\/rename (.+)/, ({ match, from, reply }) => {
     const userName = match[1];
     log && Console.log(from.username);
-    return UserRename(from.id, from.username, userName, reply);
+    UserRename(from.id, from.username, userName)
+      .then(item => reply(`Ok, ${item.name}`))
+      .catch(error => reply(error));
   });
 };
 
