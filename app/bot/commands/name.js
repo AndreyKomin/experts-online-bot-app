@@ -1,9 +1,10 @@
 import UserRegistration from '../registration';
 
 const CommandName = (bot) => {
-  bot.hears(/\/name (.+)/, ({ match, from, reply }) => {
-    const userName = match[1];
-    return UserRegistration(from.id, from.username, userName, reply);
+  bot.hears(/Registration/, ({ from, reply }) => {
+    UserRegistration(from.id, from.username, from.username)
+      .then(item => reply(item))
+      .catch(error => reply(error));
   });
 };
 
