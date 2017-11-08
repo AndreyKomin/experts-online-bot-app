@@ -1,4 +1,5 @@
 import express from 'express';
+import config from 'config';
 
 import { log, Console } from './debug';
 
@@ -6,7 +7,7 @@ import Bot from './bot';
 
 const app = express();
 
-const port = 8080;
+const port = config.get('http-port');
 
 app.listen(port, () => {
   log && Console.log(`We are live on ${port}`);
