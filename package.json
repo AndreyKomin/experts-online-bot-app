@@ -5,7 +5,7 @@
     "production": "cross-env NODE_ENV=production babel-node server.js --presets=env",
     "lint": "eslint --format 'node_modules/eslint-friendly-formatter' **/*.js",
     "lint:fix": "eslint --fix **/*.js",
-    "precommit": "yarn lint"
+    "precommit": "npm run lint"
   },
   "dependencies": {
     "babel-cli": "^6.26.0",
@@ -22,5 +22,8 @@
     "husky": "^0.14.3",
     "mongodb": "^2.2.31",
     "telegraf": "^3.12.0"
+  },
+  "devDependencies": {
+    "babel-watch": "^2.0.7"
   }
 }

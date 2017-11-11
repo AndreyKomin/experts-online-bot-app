@@ -4,8 +4,8 @@
   "url": "https://ekbrand.tk/bot/",
   "token": "402026689:AAE7XouJSuxLlE98fFitwZkAcaQuJkh9duw",
   "db": {
-    "url": "mongodb://localhost:27017/topadvisor",
-    "user": "topadvisor",
-    "pwd": "asd123"
+    "url": "mongodb://mongo:27017/topadvisor",
+    "user": "user",
+    "pwd": "secret"
   }
 }

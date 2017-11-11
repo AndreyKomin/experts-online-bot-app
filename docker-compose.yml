@@ -1,6 +1,7 @@
 version: "2"
 services:
-  node:
+  botapp:
+    container_name: botapp
     image: "node:8"
     user: "node"
     working_dir: /usr/src/app
@@ -11,7 +12,23 @@ services:
     expose:
      - "3000"
      - "8000"
-    command: "npm run production"
+    command: "npm run start"
     ports:
       - 0.0.0.0:3000:3000/tcp
       - 0.0.0.0:8000:8000/tcp
+    links:
+      - mongo
+
+  mongo:
+    container_name: mongo
+    image: mongo
+    ports:
+      - "27017:27017"
+    volumes_from:
+      - mongodata
+
+  mongodata:
+    container_name: mongodata
+    image: tianon/true
+    volumes:
+      - /data/db
