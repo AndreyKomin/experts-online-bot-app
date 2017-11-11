@@ -14,9 +14,9 @@ const bot = new Telegraf(TOKEN);
 
 
 bot.telegram.setWebhook(webHookUrl);
-bot.use(Telegraf.memorySession());
+bot.use(Telegraf.session());
 
-bot.startWebhook(`/${TOKEN}`, null, 3000);
+bot.startWebhook(`/${TOKEN}`, null, config.get('bot-port'));
 
 log && Console.log('Business Helper is started');
 
