@@ -3,7 +3,6 @@ import config from 'config';
 
 import { log, Console } from '../debug';
 
-
 import CommandStart from './commands/start';
 import CommandStop from './commands/stop';
 import CommandName from './commands/name';
@@ -16,8 +15,9 @@ const bot = new Telegraf(TOKEN);
 bot.use(Telegraf.log());
 
 bot.telegram.setWebhook(webHookUrl);
+bot.use(Telegraf.session());
 
-bot.startWebhook(`/${TOKEN}`, null, 3000);
+bot.startWebhook(`/${TOKEN}`, null, config.get('bot-port'));
 
 log && Console.log('Business Helper is started');
 

@@ -3,9 +3,9 @@
     "start": "babel-node server.js --presets=env",
     "tunnel": "lt -p3000",
     "production": "cross-env NODE_ENV=production babel-node server.js --presets=env",
-    "lint": "eslint **/*.js",
+    "lint": "eslint --format 'node_modules/eslint-friendly-formatter' **/*.js",
     "lint:fix": "eslint --fix **/*.js",
-    "precommit": "yarn lint"
+    "precommit": "npm run lint"
   },
   "dependencies": {
     "babel-cli": "^6.26.0",
@@ -20,7 +20,11 @@
     "eslint-plugin-react": "^7.4.0",
     "express": "^4.16.2",
     "husky": "^0.14.3",
+    "localtunnel": "^1.8.3",
     "mongodb": "^2.2.31",
     "telegraf": "^3.12.0"
+  },
+  "devDependencies": {
+    "babel-watch": "^2.0.7"
   }
 }

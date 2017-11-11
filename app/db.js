@@ -12,8 +12,8 @@ class DB {
     mongoClient.connect(db.get('url')).then((database) => {
       this.mongodb = database;
       return log && Console.info('MongoDB is started');
-    }).catch((err) => {
-      log && Console.error('if ', err);
+    }).catch(() => {
+      log && Console.error('Mongo error');
       return false;
     });
   }
