@@ -8,6 +8,7 @@ import CommandStop from './commands/stop';
 import CommandName from './commands/name';
 import CommandRename from './commands/rename';
 import CommandRegistration from './commands/registration';
+import CommandAuth from './commands/auth';
 
 const TOKEN = config.get('token');
 const webHookUrl = `${config.get('url')}/${TOKEN}`;
@@ -27,10 +28,7 @@ CommandStop(bot);
 CommandName(bot);
 CommandRename(bot);
 CommandRegistration(bot);
-
-bot.catch((err) => {
-  log && Console.log('Ooops', err);
-});
+CommandAuth(bot);
 
 bot.hears(/lesson (.+)/, ({ match, from, reply }) => {
   const command = match[1];

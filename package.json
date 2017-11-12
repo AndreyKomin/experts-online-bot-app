@@ -8,6 +8,7 @@
     "precommit": "npm run lint"
   },
   "dependencies": {
+    "axios": "^0.17.1",
     "babel-cli": "^6.26.0",
     "babel-preset-env": "^1.6.0",
     "config": "^1.26.2",

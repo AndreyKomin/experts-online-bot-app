@@ -2,7 +2,7 @@ import checkUser from '../checkUser';
 
 const checkRegistration = (ctx, Telegraf) => {
   checkUser(ctx.message.from.id).then((item) => {
-    ctx.reply(`Hello, ${item.name}!`, Telegraf.Extra
+    ctx.reply(`Hello, ${item.tUserName}!`, Telegraf.Extra
       .markdown()
       .markup(m => m.inlineKeyboard([
         m.callbackButton('Hi!', 'yesCallback'),
