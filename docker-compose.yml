@@ -6,13 +6,13 @@ services:
     user: "node"
     working_dir: /usr/src/app
     environment:
-      - NODE_ENV=production
+      - ./.env
     volumes:
       - ./:/usr/src/app
     expose:
      - "3000"
      - "8000"
-    command: "npm run production"
+    command: "npm run ${NODE_ENV}"
     ports:
       - 0.0.0.0:3000:3000/tcp
       - 0.0.0.0:8000:8000/tcp
