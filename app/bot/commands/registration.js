@@ -1,6 +1,6 @@
 import UserRegistration from '../registration';
 
-const CommandName = (bot) => {
+const CommandRegistration = (bot) => {
   bot.action('registrationCallback', ({ answerCallbackQuery, from, reply }) => {
     UserRegistration(from.id, from.username, from.username)
       .then(item => answerCallbackQuery(item))
@@ -11,4 +11,4 @@ const CommandName = (bot) => {
   });
 };
 
-export default CommandName;
+export default CommandRegistration;

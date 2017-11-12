@@ -1,7 +1,7 @@
 {
   "bot-port": 3000,
   "http-port": 8000,
-  "url": "https://dzjvxrwocj.localtunnel.me",
+  "url": "https://xlwslnaqdu.localtunnel.me",
   "token": "402026689:AAE7XouJSuxLlE98fFitwZkAcaQuJkh9duw",
   "db": {
     "url": "mongodb://user:secret@mongo:27017/topadvisor"
